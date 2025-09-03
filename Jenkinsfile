@@ -29,7 +29,7 @@ pipeline {
                     sh 'docker rm my-webapp-container || true'
 
                     // Run the Docker container
-                    sh "docker run -d -p 80:3000 --name my-webapp-container banga1/my-webapp:${env.BUILD_NUMBER}"
+                    sh "docker run -d -p 9090:80 --name my-webapp-container banga1/my-webapp:${env.BUILD_NUMBER}"
                 }
             }
         }

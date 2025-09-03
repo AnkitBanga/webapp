@@ -10,17 +10,6 @@ pipeline {
                 }
             }
         }
-        stage('Push Docker Image (Optional)') {
-            steps {
-                script {
-                    // Push the image to a Docker registry (e.g., Docker Hub)
-                    // Requires Docker Hub credentials configured in Jenkins
-                    docker.withRegistry('https://hub.docker.com', '1') {
-                        docker.image("my-webapp:${env.BUILD_NUMBER}").push()
-                    }
-                }
-            }
-        }
         stage('Run Docker Container') {
             steps {
                 script {

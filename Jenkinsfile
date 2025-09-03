@@ -1,38 +1,33 @@
 pipeline {
-    agent any
+    agent any 
 
-    stages {
-        stage('Build Docker Image') {
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('1')
+        APP_NAME = "banga1/myweb-app"  #Replace "yourusername/your-nodejs-app" with your DockerHub repository name.
+    }
+
+    stages { 
+        stage('SCM Checkout') {
             steps {
-                script {
-                    // Build the Docker image
-                    docker.build("my-webapp:${env.BUILD_NUMBER}")
-                }
+                git branch: 'main', url: 'https://github.com/AnkitBanga/webapp.git'
             }
         }
-
-        stage('Push the docker image'){
-            steps {
-                script {
-                    // Push the image to a Docker registry (e.g., Docker Hub)
-                    // Requires Docker Hub credentials configured in Jenkins
-                    docker.withRegistry('https://registry.hub.docker.com', '1') {
-                        docker.image("my-webapp:${env.BUILD_NUMBER}").push()
-                    }
-                }
+        
+        stage('Build docker image') {
+            steps {  
+                sh 'docker build -t $APP_NAME:$BUILD_NUMBER .'
             }
         }
-       
-        stage('Run Docker Container') {
+        
+        stage('login to dockerhub') {
             steps {
-                script {
-                    // Stop and remove any existing container with the same name
-                    sh 'docker stop my-webapp-container || true'
-                    sh 'docker rm my-webapp-container || true'
-
-                    // Run the Docker container
-                    sh "docker run -d -p 9091:80 --name my-webapp-container my-webapp:${env.BUILD_NUMBER}"
-                }
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            }
+        }
+        
+         stage('push image') {
+            steps {
+                sh 'docker push $APP_NAME:$BUILD_NUMBER'
             }
         }
     }

@@ -16,7 +16,7 @@ pipeline {
                     // Push the image to a Docker registry (e.g., Docker Hub)
                     // Requires Docker Hub credentials configured in Jenkins
                     docker.withRegistry('https://registry.hub.docker.com', '1') {
-                        docker.image("my-webapp:${env.BUILD_NUMBER}").push()
+                        docker.image("banga1/my-webapp:${env.BUILD_NUMBER}").push()
                     }
                 }
             }

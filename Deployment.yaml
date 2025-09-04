@@ -16,23 +16,6 @@ spec:
     spec:
       containers:
       - name: mywebapp-container
-        image: azuredevopsregistry.azurecr.io/azuredevopsregistry/my-webapp:14 # Docker image to use for the container
+        image: azuredevopsregistry.azurecr.io/azuredevopsregistry/webapp6:latest # Docker image to use for the container
         ports:
         - containerPort: 80 # Port exposed by the container
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: testmywebapp
-  namespace: default
-  labels:
-    app: mywebapp
-spec:
-  ports:
-    - name: testmywebapp
-      protocol: TCP
-      port: 80
-      targetPort: 80
-      nodePort: 30001
-  selector:
-    app: mywebapp

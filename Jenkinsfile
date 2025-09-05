@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent {label 'azurevm'  }
     stages {
         stage('Build Docker Image') {
             steps {
@@ -20,19 +20,16 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to kunbernetes')
+        stage('Deploy to azure container')
             steps {
                 script {
 
-                            withCredentials([file(credentialsId: 'forkubeconfig', variable: 'KUBECONFIG_FILE')]) {
-                            sh "kubectl --kubeconfig=$KUBECONFIG_FILE get pods"
-                            // Your other kubectl commands
-                    // Stop and remove any existing container with the same name
-                    // sh 'docker stop my-webapp-container || true'
-                    // sh 'docker rm my-webapp-container || true'
+                     //Stop and remove any existing container with the same name
+                       sh 'docker stop my-webapp-container || true'
+                       sh 'docker rm my-webapp-container || true'
 
-                    // Run the Docker container
-                    // sh "docker run -d -p 9090:80 --name my-webapp-container banga1/my-webapp:${env.BUILD_NUMBER}"
+                    //Run the Docker container
+                       sh "docker run -d -p 9090:80 --name my-webapp-container banga1/my-webapp:${env.BUILD_NUMBER}"
                 }
             }
         }

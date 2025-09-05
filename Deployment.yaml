@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: mywebapp-container
-        image: azuredevopsregistry.azurecr.io/azuredevopsregistry/webapp6:latest # Docker image to use for the container
+        image: azuredevopsregistry.azurecr.io/azuredevopsregistry/my-webapp:latest # Docker image to use for the container
         ports:
         - containerPort: 80 # Port exposed by the container

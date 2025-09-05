@@ -1,5 +1,5 @@
 pipeline {
-    agent {label 'azurevm'  }
+    agent { label 'azurevm'  }
     stages {
         stage('Build Docker Image') {
             steps {
@@ -20,7 +20,7 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to azure container')
+        stage('Deploy to azure container') {
             steps {
                 script {
 

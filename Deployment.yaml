@@ -5,7 +5,7 @@ metadata:
   labels:
     app: mywebapp
 spec:
-  replicas: 2 # Desired number of Pod replicas
+  replicas: 1 # Desired number of Pod replicas
   selector:
     matchLabels:
       app: mywebapp # Selects Pods with this label
@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: mywebapp-container
-        image: azuredevopsregistry.azurecr.io/azuredevopsregistry/my-webapp:latest # Docker image to use for the container
+        image: banga1/my-webapp:18
         ports:
         - containerPort: 80 # Port exposed by the container

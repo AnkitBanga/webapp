@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: mywebapp-container
-        image: registry.hub.docker.com/banga1/my-webapp:latest
+        image: banga1/my-webapp:latest
         ports:
         - containerPort: 80 # Port exposed by the container

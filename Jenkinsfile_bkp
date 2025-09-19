@@ -23,17 +23,13 @@ pipeline {
         stage('Deploy to azure container') {
             steps {
                 script {
-                    //Run on minikube k8s cluster
-                    sh  "sed -i 's|banga1/my-webapp:latest|banga1/my-webapp:${env.BUILD_NUMBER}:${env.BUILD_NUMBER}|g' Deployment.yaml"
-                    sh kubectl apply -f Deployment.yaml                     
-
 
                      //Stop and remove any existing container with the same name
-                     //  sh 'docker stop my-webapp-container || true'
-                     //  sh 'docker rm my-webapp-container || true'
+                       sh 'docker stop my-webapp-container || true'
+                       sh 'docker rm my-webapp-container || true'
 
                     //Run the Docker container
-                    //   sh "docker run -d -p 9090:80 --name my-webapp-container banga1/my-webapp:${env.BUILD_NUMBER}"
+                       sh "docker run -d -p 9090:80 --name my-webapp-container banga1/my-webapp:${env.BUILD_NUMBER}"
                 }
             }
         }

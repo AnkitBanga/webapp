@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'azurevm'  }
+    agent any
     stages {
         stage('Build Docker Image') {
             steps {

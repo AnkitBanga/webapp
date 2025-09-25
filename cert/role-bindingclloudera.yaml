@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: read-pods-cloudera
+  namespace: default
+subjects:
+- kind: User
+  name: cloudera # Name is case sensitive
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role #this must be Role or ClusterRole
+  name: pod-reader-cloudera # must match the name of the Role
+  apiGroup: rbac.authorization.k8s.io
